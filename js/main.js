@@ -161,6 +161,10 @@ function commander(cmd) {
       addLine("Opening LinkedIn...", "color2", 0);
       newTab(linkedin);
       break;
+    case "spotify":
+      addLine("Opening spotify...", "color2", 0);
+      newTab(spotify);
+      break;
     case "instagram":
       addLine("Opening Instagram...", "color2", 0);
       newTab(instagram);

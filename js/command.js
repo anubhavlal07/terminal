@@ -2,6 +2,7 @@ var linkedin = "https://www.linkedin.com/in/anubhavl/";
 var website = "https://anubhavlal07.github.io/";
 var instagram = "https://www.instagram.com/_anu_bhav/";
 var github = "https://github.com/anubhavlal07/";
+var spotify = "https://open.spotify.com/user/31te6546l5jifevdxndhszz4eyxi";
 var email = "mailto:anubhavlal.15@gmail.com";
 var into = document.getElementById("intro");
 
@@ -39,6 +40,11 @@ social = [
   'github         <a href="' +
     github +
     '" target="_blank">github/anubhavlal07' +
+    "</a>",
+  "</a>",
+  'spotify        <a href="' +
+    spotify +
+    '" target="_blank">spotify/∆NUBH∆V' +
     "</a>",
   "<br>",
 ];
