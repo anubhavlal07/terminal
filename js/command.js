@@ -1,4 +1,5 @@
 var linkedin = "https://www.linkedin.com/in/anubhavl/";
+var website = "https://anubhavlal07.github.io/";
 var instagram = "https://www.instagram.com/_anu_bhav/";
 var github = "https://github.com/anubhavlal07/";
 var email = "mailto:anubhavlal.15@gmail.com";
@@ -23,6 +24,10 @@ whoami = [
 
 social = [
   "<br>",
+  'website        <a href="' +
+    website +
+    '" target="_blank">anubhavlal07.github.io' +
+    "</a>",
   'linkedin       <a href="' +
     linkedin +
     '" target="_blank">linkedin/anubhavlal' +
@@ -55,6 +60,7 @@ help = [
   "<b>Commands       Action</b>",
   "<br>",
   '<span class="command">whois</span>          Who is Anubhav?',
+  '<span class="command">website</span>        My portfilio website',
   '<span class="command">whoami</span>         Who are you?',
   '<span class="command">social</span>         Display social networks',
   '<span class="command">secret</span>         God mode,requires password',

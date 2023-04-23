@@ -9,6 +9,7 @@ let pwd = false;
 var commands = [];
 var ipAddress;
 
+console.clear();
 setTimeout(function () {
   loopLines(intro, "", 80);
   textarea.focus();
@@ -33,11 +34,11 @@ function displayIPAddress() {
 displayIPAddress();
 
 console.log(
-  "%cYou hacked my password!😠",
+  "%cYou cracked my password!😯",
   "color: #04ff00; font-weight: bold; font-size: 24px;"
 );
 console.log(
-  "%cPassword: '" + password + "' - I wonder what it does?🤔",
+  "%cPassword: '" + password + "' - I wonder what it does?🤨",
   "color: grey"
 );
 
@@ -167,6 +168,10 @@ function commander(cmd) {
     case "github":
       addLine("Opening GitHub...", "color2", 0);
       newTab(github);
+      break;
+    case "website":
+      addLine("Opening website...", "color2", 0);
+      newTab(website);
       break;
     default:
       addLine(
