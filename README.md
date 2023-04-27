@@ -43,7 +43,7 @@ https://anubhavlal07.github.io/terminal/
 ![App Screenshot](https://raw.githubusercontent.com/anubhavlal07/terminal.anubhavlal07.github.io/main/assets/terminal-interface.png)
 
 
-## Authors
+## Inspiration and Credits
 
 - [@ForrestKnight](https://github.com/forrestknight)
 - [@m4tt72](https://github.com/m4tt72)
