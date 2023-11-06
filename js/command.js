@@ -44,7 +44,7 @@ social = [
   "</a>",
   'spotify        <a href="' +
     spotify +
-    '" target="_blank">spotify/∆NUBH∆V' +
+    '" target="_blank">spotify/ANUBHAV' +
     "</a>",
   "<br>",
 ];
@@ -57,11 +57,11 @@ secret = [
 
 projects = [
   "<br>",
-  "Still curating... most projects are offline, on GitHub, or confidential.",
+  "Still curating... most of them are offline, on GitHub, or confidential.",
   "<br>",
 ];
 
-help = [
+ls = [
   "<br>",
   "<b>Commands       Action</b>",
   "<br>",
@@ -72,10 +72,10 @@ help = [
   '<span class="command">secret</span>         God mode,requires password',
   '<span class="command">projects</span>       View coding projects',
   '<span class="command">history</span>        View command history',
-  '<span class="command">help</span>           You obviously already know what this does',
+  '<span class="command">ls</span>             You obviously already know what this does',
   '<span class="command">email</span>          Do not spam me',
   '<span class="command">clear</span>          Clear terminal',
-  '<span class="command">intro</span>          Display the help keyword',
+  '<span class="command">intro</span>          Display the ls keyword',
   '<span class="command">pwd</span>            Display the current working directory',
   "<br>",
 ];
@@ -83,5 +83,5 @@ help = [
 presentWorkingDirectory = ["<br>", "/home/anubhavlal", "<br>"];
 
 intro = [
-  '<span class="color2">For a list of available commands, type</span> <span class="command">\'help\'</span><span class="color2">.</span>',
+  '<span class="color2">For a list of available commands, type</span> <span class="command">\'ls\'</span><span class="color2">.</span>',
 ];

@@ -24,7 +24,7 @@ function displayIPAddress() {
     .then((data) => {
       console.log(`Your IP address is: ${data.ip}`);
       ipAddress = data;
-      into.innerHTML = `Hello friend@[<span class="command">${data.ip}</span>], <br> Welcome to my web terminal.`;
+      into.innerHTML = `Hello friend @ <span class="command">${data.ip}</span>, <br> Welcome to my web terminal.`;
     })
     .catch((error) => {
       console.error("Error fetching IP address:", error);
@@ -99,8 +99,8 @@ function enterKey(e) {
 
 function commander(cmd) {
   switch (cmd.toLowerCase()) {
-    case "help":
-      loopLines(help, "color2 margin", 80);
+    case "ls":
+      loopLines(ls, "color2 margin", 80);
       break;
     case "whois":
       loopLines(whois, "color2 margin", 80);
@@ -179,7 +179,7 @@ function commander(cmd) {
       break;
     default:
       addLine(
-        `<span class="inherit"> <span class="command">\'${cmd}\'</span> command not found. For a list of commands, type <span class="command">\'help\'</span> for the available list of commands.</span>`,
+        `<span class="inherit"> <span class="command">\'${cmd}\'</span> command not found. For a list of commands, type <span class="command">\'ls\'</span> for the available list of commands.</span>`,
         "error",
         100
       );
