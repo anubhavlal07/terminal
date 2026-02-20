@@ -1,0 +1,123 @@
+/* ─── Mobile (≤ 480px) ─── */
+@media (max-width: 480px) {
+    body {
+        font-size: clamp(11px, 3.2vw, 14px);
+        padding: 8px 10px;
+        padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+
+    #liner::before {
+        content: "visitor:~$ ";
+        font-size: 0.95em;
+    }
+
+    .margin {
+        margin-left: 10px;
+    }
+
+    .mobile-tap-hint {
+        display: block;
+    }
+
+    .skill-bar {
+        max-width: 150px;
+    }
+
+    .ascii-art {
+        font-size: clamp(4px, 2vw, 8px);
+    }
+
+    .tab-suggestions {
+        gap: 4px;
+    }
+
+    .tab-suggestions span {
+        font-size: 0.8em;
+        padding: 2px 6px;
+    }
+}
+
+/* ─── Tablet (481px – 768px) ─── */
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        font-size: clamp(12px, 2vw, 14px);
+        padding: 12px 16px;
+    }
+
+    #liner::before {
+        content: "visitor@terminal:~$ ";
+    }
+
+    .ascii-art {
+        font-size: clamp(6px, 1.4vw, 10px);
+    }
+}
+
+/* ─── Large Screens (≥ 1200px) ─── */
+@media (min-width: 1200px) {
+    body {
+        font-size: 15px;
+        padding: 20px 40px;
+    }
+
+    #terminal {
+        max-width: 1000px;
+    }
+}
+
+/* ─── Landscape Mobile ─── */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .mobile-tap-hint {
+        display: none;
+    }
+}
+
+/* ─── Accessibility: Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ─── Accessibility: High Contrast ─── */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #00ff88;
+        --text-white: #ffffff;
+        --bg: #000000;
+    }
+}
+
+/* ─── Print ─── */
+@media print {
+    body::after {
+        display: none;
+    }
+
+    #command {
+        display: none;
+    }
+
+    .mobile-tap-hint {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .command,
+    .color2 {
+        color: black;
+    }
+}

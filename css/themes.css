@@ -1,0 +1,103 @@
+/* ─── Theme Variables ─── */
+
+/* Dark (default) */
+:root {
+    --bg: #0a0a0f;
+    --bg-secondary: #12121a;
+    --text-primary: #00ff88;
+    --text-secondary: #b4b4b4;
+    --text-white: #e8e8e8;
+    --text-error: #ff4757;
+    --text-link: #5b9dff;
+    --text-link-hover: #82b1ff;
+    --cursor-color: #00ff88;
+    --prompt-color: #00ff88;
+    --scanline-opacity: 0.03;
+    --glow-color: rgba(0, 255, 136, 0.15);
+    --skill-bar-bg: rgba(255, 255, 255, 0.08);
+    --skill-bar-fill: linear-gradient(90deg, #00ff88, #00ccff);
+    --hint-bg: rgba(255, 255, 255, 0.06);
+    --hint-border: rgba(255, 255, 255, 0.1);
+    --selection-bg: rgba(0, 255, 136, 0.3);
+    --selection-color: #fff;
+}
+
+/* Light */
+[data-theme="light"] {
+    --bg: #f5f5f0;
+    --bg-secondary: #eaeae5;
+    --text-primary: #1a7a4c;
+    --text-secondary: #555;
+    --text-white: #222;
+    --text-error: #c0392b;
+    --text-link: #2563eb;
+    --text-link-hover: #1d4ed8;
+    --cursor-color: #1a7a4c;
+    --prompt-color: #1a7a4c;
+    --scanline-opacity: 0;
+    --glow-color: transparent;
+    --skill-bar-bg: rgba(0, 0, 0, 0.08);
+    --skill-bar-fill: linear-gradient(90deg, #1a7a4c, #2563eb);
+    --hint-bg: rgba(0, 0, 0, 0.04);
+    --hint-border: rgba(0, 0, 0, 0.1);
+    --selection-bg: rgba(26, 122, 76, 0.3);
+    --selection-color: #000;
+}
+
+/* Retro (amber CRT) */
+[data-theme="retro"] {
+    --bg: #0d0208;
+    --bg-secondary: #1a0510;
+    --text-primary: #ff6600;
+    --text-secondary: #cc8844;
+    --text-white: #ffcc66;
+    --text-error: #ff3333;
+    --text-link: #ff9933;
+    --text-link-hover: #ffcc00;
+    --cursor-color: #ff6600;
+    --prompt-color: #ff6600;
+    --scanline-opacity: 0.06;
+    --glow-color: rgba(255, 102, 0, 0.1);
+    --skill-bar-bg: rgba(255, 102, 0, 0.1);
+    --skill-bar-fill: linear-gradient(90deg, #ff6600, #ffcc00);
+    --hint-bg: rgba(255, 102, 0, 0.06);
+    --hint-border: rgba(255, 102, 0, 0.15);
+    --selection-bg: rgba(255, 102, 0, 0.3);
+    --selection-color: #fff;
+}
+
+/* Matrix */
+[data-theme="matrix"] {
+    --bg: #000800;
+    --bg-secondary: #001200;
+    --text-primary: #00ff41;
+    --text-secondary: #008f11;
+    --text-white: #00ff41;
+    --text-error: #ff0040;
+    --text-link: #39ff14;
+    --text-link-hover: #7fff00;
+    --cursor-color: #00ff41;
+    --prompt-color: #00ff41;
+    --scanline-opacity: 0.05;
+    --glow-color: rgba(0, 255, 65, 0.12);
+    --skill-bar-bg: rgba(0, 255, 65, 0.08);
+    --skill-bar-fill: linear-gradient(90deg, #008f11, #00ff41);
+    --hint-bg: rgba(0, 255, 65, 0.04);
+    --hint-border: rgba(0, 255, 65, 0.12);
+    --selection-bg: rgba(0, 255, 65, 0.3);
+    --selection-color: #000;
+}
+
+/* Scanline overlay (theme-dependent) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+            rgba(0, 0, 0, var(--scanline-opacity)) 4px);
+    z-index: 9999;
+}

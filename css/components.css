@@ -1,0 +1,186 @@
+/* ─── Cursor ─── */
+.cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.2em;
+    background-color: var(--cursor-color);
+    color: transparent;
+    position: relative;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+    will-change: opacity;
+    border-radius: 1px;
+    box-shadow: 0 0 6px var(--glow-color);
+    font-size: inherit;
+    overflow: hidden;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ─── Command Input Area ─── */
+#command {
+    cursor: text;
+    min-height: 44px;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 4px 0;
+}
+
+#liner {
+    line-height: 1.6;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 1s;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    width: 100%;
+}
+
+#liner::before {
+    color: var(--prompt-color);
+    content: "visitor@terminal:~$ ";
+    white-space: pre;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+#liner.password::before {
+    content: "Password: ";
+}
+
+#typer {
+    word-break: break-all;
+    min-width: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Tab Completion ─── */
+.tab-hint {
+    display: inline-block;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    pointer-events: none;
+    font-style: italic;
+}
+
+.tab-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 4px 0;
+    padding: 8px 0;
+}
+
+.tab-suggestions span {
+    background: var(--hint-bg);
+    border: 1px solid var(--hint-border);
+    padding: 2px 10px;
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.9em;
+}
+
+/* ─── Skill Bars ─── */
+.skill-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 3px 0;
+    flex-wrap: wrap;
+}
+
+.skill-name {
+    min-width: clamp(60px, 12vw, 100px);
+    color: var(--text-white);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.skill-bar {
+    flex: 1;
+    min-width: 80px;
+    max-width: 250px;
+    height: 10px;
+    background: var(--skill-bar-bg);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: var(--skill-bar-fill);
+    border-radius: 5px;
+    width: 0%;
+    transition: width 1s ease-out;
+    box-shadow: 0 0 8px var(--glow-color);
+}
+
+.skill-percent {
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    min-width: 35px;
+}
+
+/* ─── ASCII Banner ─── */
+.ascii-art {
+    color: var(--text-primary);
+    font-size: clamp(6px, 1.2vw, 12px);
+    line-height: 1.2;
+    white-space: pre;
+    overflow-x: auto;
+    margin: 4px 0;
+}
+
+/* ─── Welcome Section ─── */
+.welcome-text {
+    color: var(--text-white);
+    margin: 4px 0;
+}
+
+/* ─── Mobile Tap Hint ─── */
+.mobile-tap-hint {
+    display: none;
+    position: fixed;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--hint-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--hint-border);
+    border-radius: 20px;
+    padding: 8px 20px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    z-index: 100;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 2s;
+    opacity: 0;
+    pointer-events: none;
+}

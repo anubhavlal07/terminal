@@ -1,34 +1,67 @@
 <!DOCTYPE html>
-<html onclick="$('texter').focus();">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Terminal</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <link rel="icon" href="assets/terminal.png" type="image/icon type" />
-  </head>
-  <body>
-    <div id="terminal">
-      <span class="color2" id="intro"></span>
-      <a id="before"></a>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Anubhav Lal — Terminal Portfolio</title>
+  <meta name="description"
+    content="Interactive terminal-style portfolio of Anubhav Lal. Navigate with commands to explore projects, skills, and social links." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Anubhav Lal — Terminal Portfolio" />
+  <meta property="og:description" content="Explore my portfolio through an interactive terminal interface." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/terminal-interface.png" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" type="text/css" href="css/themes.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/components.css" />
+  <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+  <link rel="icon" href="assets/images/favicon.png" type="image/png" />
+</head>
+
+<body>
+  <!-- Terminal Output -->
+  <div id="terminal" role="log" aria-live="polite" aria-label="Terminal output">
+    <span class="color2" id="intro"></span>
+    <a id="before"></a>
+  </div>
+
+  <!-- Command Input -->
+  <div id="command" role="textbox" aria-label="Terminal input">
+    <textarea id="texter" aria-label="Type a command" autocomplete="off" autocorrect="off" autocapitalize="off"
+      spellcheck="false" autofocus onkeyup="typeIt(this, event)"
+      onkeydown="typeIt(this, event); moveIt(this.value.length, event)" onkeypress="typeIt(this, event);"></textarea>
+    <div id="liner">
+      <span id="typer"></span><b class="cursor" id="cursor">|</b>
     </div>
-    <div id="command" onload="$('texter').focus();">
-      <textarea
-        type="text"
-        id="texter"
-        onkeyup="typeIt(this, event)"
-        onkeydown="typeIt(this, event); 
-                   moveIt(this.value.length, event)"
-        onkeypress="typeIt(this, event);"
-        autofocus
-      ></textarea>
-      <div id="liner">
-        <span id="typer"></span><b class="cursor" id="cursor">|</b>
-      </div>
+  </div>
+
+  <!-- Mobile Tap Hint -->
+  <div class="mobile-tap-hint" id="mobileHint" aria-hidden="true">
+    Tap anywhere to start typing
+  </div>
+
+  <noscript>
+    <div style="color:#00ff88;padding:20px;font-family:monospace;">
+      <p>JavaScript is required to use this terminal portfolio.</p>
+      <p>Please enable JavaScript and reload the page.</p>
     </div>
-    <script src="js/command.js"></script>
-    <script src="js/caret.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+  </noscript>
+
+  <script src="js/commands.js"></script>
+  <script src="js/themes.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/analytics.js"></script>
+</body>
+
 </html>
