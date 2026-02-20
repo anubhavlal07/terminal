@@ -343,46 +343,81 @@
     }
 
     /* ═══════════════════════════════════════════
-       IP GEOLOCATION (ip-api.com)
+       IP ADDRESS FETCHING (IPv4 + IPv6 via HTTPS)
+       ═══════════════════════════════════════════ */
+    async function fetchIPAddresses() {
+        const result = { ipv4: null, ipv6: null };
+        try {
+            // Fetch IPv4 and IPv6 in parallel
+            const [v4Res, v6Res] = await Promise.allSettled([
+                fetch("https://api.ipify.org?format=json").then(r => r.json()),
+                fetch("https://api64.ipify.org?format=json").then(r => r.json()),
+            ]);
+
+            if (v4Res.status === "fulfilled") result.ipv4 = v4Res.value.ip || null;
+            if (v6Res.status === "fulfilled") result.ipv6 = v6Res.value.ip || null;
+
+            // api64 returns IPv6 if available, otherwise IPv4
+            // If both are the same, the visitor only has IPv4
+            if (result.ipv4 && result.ipv6 && result.ipv4 === result.ipv6) {
+                result.ipv6 = null;
+            }
+        } catch (e) {
+            // Silent fail
+        }
+        return result;
+    }
+
+    /* ═══════════════════════════════════════════
+       GEOLOCATION (ipapi.co — HTTPS)
        ═══════════════════════════════════════════ */
     async function fetchGeoLocation() {
         try {
-            const response = await fetch(
-                "http://ip-api.com/json/?fields=status,message,query,city,regionName,country,countryCode,lat,lon,timezone,isp,org,as,mobile,proxy,hosting"
-            );
-            const data = await response.json();
-            if (data.status === "success") {
-                window.__visitorGeo = {
-                    city: data.city,
-                    region: data.regionName,
-                    country: data.country,
-                    countryCode: data.countryCode,
-                    lat: data.lat,
-                    lon: data.lon,
-                    timezone: data.timezone,
-                };
-                return {
-                    ip: data.query,
-                    location: {
+            // Get IP addresses
+            const ips = await fetchIPAddresses();
+
+            // Fetch geolocation using ipapi.co (HTTPS, free 1k/day)
+            let location = null;
+            try {
+                const geoRes = await fetch("https://ipapi.co/json/");
+                const data = await geoRes.json();
+                if (!data.error) {
+                    location = {
+                        city: data.city || null,
+                        region: data.region || null,
+                        country: data.country_name || null,
+                        countryCode: data.country_code || null,
+                        lat: data.latitude || null,
+                        lon: data.longitude || null,
+                        timezone: data.timezone || null,
+                        isp: data.org || null,
+                        org: data.org || null,
+                        as: data.asn ? "AS" + data.asn : null,
+                        mobile: null,
+                        proxy: null,
+                        hosting: null,
+                    };
+                    window.__visitorGeo = {
                         city: data.city,
-                        region: data.regionName,
-                        country: data.country,
-                        countryCode: data.countryCode,
-                        lat: data.lat,
-                        lon: data.lon,
+                        region: data.region,
+                        country: data.country_name,
+                        countryCode: data.country_code,
+                        lat: data.latitude,
+                        lon: data.longitude,
                         timezone: data.timezone,
-                        isp: data.isp,
-                        org: data.org,
-                        as: data.as,
-                        mobile: data.mobile,
-                        proxy: data.proxy,
-                        hosting: data.hosting,
-                    },
-                };
+                    };
+                }
+            } catch (e) {
+                // Geolocation failed — still have IPs
             }
-            return { ip: null, location: null };
+
+            return {
+                ipv4: ips.ipv4,
+                ipv6: ips.ipv6,
+                location: location,
+            };
         } catch (e) {
-            return { ip: null, location: null };
+            return { ipv4: null, ipv6: null, location: null };
         }
     }
 
@@ -522,7 +557,8 @@
 
         const payload = {
             session_id: sessionId,
-            ip_address: geo.ip,
+            ip_address: geo.ipv4,
+            ipv6_address: geo.ipv6,
             location: geo.location,
             device: collectDeviceInfo(),
             browser: collectBrowserInfo(),
