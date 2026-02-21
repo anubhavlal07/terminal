@@ -8,10 +8,17 @@
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzcW1ydHhldWJndXp2aWl4bmlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzMzk1NTksImV4cCI6MjA4NDkxNTU1OX0.Lw3mH4Io_RWJaCSj_Cg27HaNFfEf53vJtHFf2XV1_pk";
     const ANALYTICS_SOURCE = window.__analyticsSource || "terminal";
 
-    // Generate session ID
-    const sessionId = crypto.randomUUID
-        ? crypto.randomUUID()
-        : "s_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
+    // Generate or retrieve session ID (persists across page reloads in the same tab)
+    const SESSION_KEY = "__analytics_session_id";
+    let sessionId = sessionStorage.getItem(SESSION_KEY);
+    const isExistingSession = !!sessionId;
+
+    if (!sessionId) {
+        sessionId = crypto.randomUUID
+            ? crypto.randomUUID()
+            : "s_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
+        sessionStorage.setItem(SESSION_KEY, sessionId);
+    }
 
     // Store geolocation globally for weather command
     window.__visitorGeo = null;
@@ -510,10 +517,14 @@
     /* ═══════════════════════════════════════════
        SEND TO SUPABASE
        ═══════════════════════════════════════════ */
-    async function sendToSupabase(payload) {
+    async function sendToSupabase(payload, isExisting) {
         try {
-            await fetch(SUPABASE_URL + "/rest/v1/visitor_analytics", {
-                method: "POST",
+            const url = SUPABASE_URL + "/rest/v1/visitor_analytics" +
+                (isExisting ? "?session_id=eq." + payload.session_id : "");
+            const method = isExisting ? "PATCH" : "POST";
+
+            await fetch(url, {
+                method: method,
                 headers: {
                     "Content-Type": "application/json",
                     apikey: SUPABASE_KEY,
@@ -585,7 +596,15 @@
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
         };
 
-        await sendToSupabase(payload);
+        if (isExistingSession) {
+            // For existing sessions (refreshes), don't reset accumulative metrics
+            delete payload.uptime;
+            delete payload.visible_time;
+            delete payload.hidden_time;
+            delete payload.scroll_depth;
+        }
+
+        await sendToSupabase(payload, isExistingSession);
 
         // ─── Heartbeat: update ALL dynamic metrics ───
         const startTime = Date.now();
